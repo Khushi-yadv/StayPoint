@@ -30,7 +30,7 @@ const userRouter=require("./routes/user.js");
 const dbUrl=process.env.ATLASDB_URL;
 
 const cors=require("cors");
-app.use(cord());
+app.use(cors());
 
 app.use(cors({
     origin:"https://project-1-m8f4.onrender.com/listings"
