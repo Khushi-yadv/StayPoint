@@ -72,9 +72,9 @@ const sessionOptions={
     },
 };
 
-/*app.get("/",(req,res)=>{
+app.get("/",(req,res)=>{
     res.send("Hi I'm root");
-});*/
+});
 
 
 app.use(session(sessionOptions));
@@ -238,6 +238,10 @@ app.delete(
   console.log("sample was saved");
   res.send("successful testing");
 });*/
+
+/*app.get("/",(req,res)=>{
+    res.send("Safe");
+})*/
 
 
 app.use((req,res)=>{
