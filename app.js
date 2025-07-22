@@ -29,12 +29,6 @@ const userRouter=require("./routes/user.js");
 //const MONGO_URL="mongodb://127.0.0.1:27017/gharjaisaghar";
 const dbUrl=process.env.ATLASDB_URL;
 
-const cors=require("cors");
-app.use(cors());
-
-app.use(cors({
-    origin:"https://project-1-m8f4.onrender.com/listings"
-}));
 
 main().then(()=>{
     console.log("connect to DB");
