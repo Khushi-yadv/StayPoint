@@ -1,0 +1,120 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-4">
+
+    <h1 class="mb-4 text-center">
+        My Bookings
+    </h1>
+
+    <% if(bookings.length === 0){ %>
+
+        <div class="text-center mt-5">
+
+            <i class="fa-solid fa-calendar-xmark"
+               style="font-size:70px;color:#ccc;"></i>
+
+            <h3 class="mt-3">
+                No bookings yet
+            </h3>
+
+            <p class="text-muted">
+                Looks like you haven't booked any stay yet.
+            </p>
+
+            <a
+                href="/listings"
+                class="btn btn-danger rounded-pill px-4 mt-2"
+            >
+                Explore Stays
+            </a>
+
+        </div>
+
+    <% } else { %>
+
+        <div class="row">
+
+            <% bookings.forEach(booking => { %>
+
+                <div class="col-md-6 mb-4">
+
+                    <div
+                        class="card shadow"
+                        style="
+                            border:none;
+                            border-radius:18px;
+                            overflow:hidden;
+                        "
+                    >
+
+                        <img
+    src="<%= booking.listing.image.url %>"
+    class="card-img-top"
+    style="height:250px; object-fit:cover;"
+>
+
+                        <div class="card-body p-4">
+
+                            <h4 class="card-title mb-3">
+    <%= booking.listing.title %>
+</h4>
+                            <p class="mb-3">
+                                📍
+                                <%= booking.listing.location %>
+                            </p>
+
+                            <p class="mb-3">
+                                <strong>
+                                    Check In:
+                                </strong>
+                                <%= booking.checkIn.toDateString() %>
+                            </p>
+
+                            <p class="mb-3">
+                                <strong>
+                                    Check Out:
+                                </strong>
+                                <%= booking.checkOut.toDateString() %>
+                            </p>
+
+                            <p class="mb-3">
+                                <strong>
+                                    Guests:
+                                </strong>
+                                <%= booking.guests %>
+                            </p>
+
+                            <p class="mb-4">
+                                <strong>
+                                    Total:
+                                </strong>
+                                ₹<%= booking.totalPrice %>
+                            </p>
+
+                            <form
+                                method="POST"
+                                action="/bookings/cancel/<%= booking._id %>?_method=DELETE"
+                            >
+
+                                <button
+                                    class="btn btn-danger"
+                                    
+                                >
+                                    Cancel Booking
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
+
+</div>

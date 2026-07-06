@@ -29,6 +29,64 @@
         class="form-control"
       />
       </div>
+      <div class="row">
+    <div class="col-md-2 mb-3">
+        <label class="form-label">Bedrooms</label>
+        <input
+            type="number"
+            class="form-control"
+            name="listing[bedrooms]"
+            min="1"
+            value="<%= listing.bedrooms %>"
+            required>
+    </div>
+
+    <div class="col-md-2 mb-3">
+        <label class="form-label">Beds</label>
+        <input
+            type="number"
+            class="form-control"
+            name="listing[beds]"
+            min="1"
+            value="<%= listing.beds %>"
+            required>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label class="form-label">Bed Type</label>
+
+        <select
+            class="form-select"
+            name="listing[bedType]"
+            required>
+
+            <option
+                value="Single Bed"
+                <%= listing.bedType === "Single Bed" ? "selected" : "" %>>
+                Single Bed
+            </option>
+
+            <option
+                value="Double Bed"
+                <%= listing.bedType === "Double Bed" ? "selected" : "" %>>
+                Double Bed
+            </option>
+
+        </select>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label class="form-label">Bathrooms</label>
+        <input
+            type="number"
+            class="form-control"
+            name="listing[bathrooms]"
+            min="1"
+            value="<%= listing.bathrooms %>"
+            required>
+    </div>
+
+</div>
 
       <div class="row">
         <div class="mb-3 col-md-4">
@@ -55,6 +113,80 @@
       />
       <div class="invalid-feedback">Location should be valid</div>
       </div>
+
+      <div class="mb-4">
+    <label class="form-label"><b>Select Category</b></label>
+
+    <div class="category-container">
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Trending" <%= listing.category==="Trending" ? "checked" : "" %>>
+            <i class="fa-solid fa-fire"></i>
+            <span>Trending</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Rooms" <%= listing.category==="Rooms" ? "checked" : "" %>>
+            <i class="fa-solid fa-bed"></i>
+            <span>Rooms</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Iconic City" <%= listing.category==="Iconic City" ? "checked" : "" %>>
+            <i class="fa-solid fa-city"></i>
+            <span>Iconic City</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Mountains" <%= listing.category==="Mountains" ? "checked" : "" %>>
+            <i class="fa-solid fa-mountain"></i>
+            <span>Mountains</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Castles" <%= listing.category==="Castles" ? "checked" : "" %>>
+            <i class="fa-brands fa-fort-awesome"></i>
+            <span>Castles</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Amazing Pools" <%= listing.category==="Amazing Pools" ? "checked" : "" %>>
+            <i class="fa-solid fa-person-swimming"></i>
+            <span>Amazing Pools</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Camping" <%= listing.category==="Camping" ? "checked" : "" %>>
+            <i class="fa-solid fa-campground"></i>
+            <span>Camping</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Farms" <%= listing.category==="Farms" ? "checked" : "" %>>
+            <i class="fa-solid fa-cow"></i>
+            <span>Farms</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Arctic" <%= listing.category==="Arctic" ? "checked" : "" %>>
+            <i class="fa-regular fa-snowflake"></i>
+            <span>Arctic</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Domes" <%= listing.category==="Domes" ? "checked" : "" %>>
+            <i class="fa-solid fa-igloo"></i>
+            <span>Domes</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Boats" <%= listing.category==="Boats" ? "checked" : "" %>>
+            <i class="fa-solid fa-ship"></i>
+            <span>Boats</span>
+        </label>
+
+    </div>
+</div>
 
       <button class="btn btn-dark edit-btn mt-3">Edit</button>
     </form>

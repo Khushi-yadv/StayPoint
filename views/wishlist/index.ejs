@@ -1,0 +1,108 @@
+<% layout("/layouts/boilerplate") %>
+<div class="container mt-5">
+
+    <h2 class="mb-4 text-center">
+        My Wishlist
+    </h2>
+
+    <% if(wishlist.length === 0){ %>
+
+<div class="text-center mt-5">
+
+    <i class="fa-solid fa-heart-crack"
+    style="font-size:80px;color:#dc3545;"></i>
+
+    <h3 class="mt-4">
+
+        Your Wishlist is Empty
+
+    </h3>
+
+    <p>
+
+        Start exploring and save your favourite stays.
+
+    </p>
+
+    <a href="/listings"
+    class="btn btn-danger rounded-pill px-4 mt-2">
+
+        Explore Stays
+
+    </a>
+
+</div>
+
+<% } else { %>
+
+    <div class="row">
+
+        <% wishlist.forEach(item => { %>
+
+            <div class="col-md-4 mb-4">
+
+                <div class="card listing-card">
+
+                    <img
+                        src="<%= item.listing.image.url %>"
+                        class="card-img-top"
+                        style="height:220px; object-fit:cover;"
+                    >
+
+                    <div class="card-body">
+
+                        <h5>
+                            <%= item.listing.title %>
+                        </h5>
+
+                        <p>
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <%= item.listing.location %>
+
+                        </p>
+
+                        <h6>
+
+                            ₹ <%= item.listing.price %> / night
+
+                        </h6>
+
+                        <a
+                            href="/listings/<%= item.listing._id %>"
+                            class="btn btn-primary mt-2"
+                        >
+
+                            View Listing
+
+                        </a>
+
+                        <form
+                            action="/wishlist/<%= item._id %>?_method=DELETE"
+                            method="POST"
+                            class="d-inline"
+                        >
+
+                            <button
+                                class="btn btn-danger mt-2 ms-3"
+                            >
+
+                                Remove 
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+    <% } %>
+
+</div>

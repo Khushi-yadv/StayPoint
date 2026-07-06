@@ -65,8 +65,137 @@
       <div class="invalid-feedback">Location should be valid</div>
       </div>
 
+      <div class="row">
+    <div class="mb-3">
+    <label class="form-label">
+        Bed Type
+    </label>
+
+    <select
+        name="listing[bedType]"
+        class="form-select"
+        required
+    >
+        <option value="Single Bed">
+            Single Bed
+        </option>
+
+        <option value="Double Bed">
+            Double Bed
+        </option>
+    </select>
+</div>
+
+    <div class="col-md-3">
+        <label>Bedrooms</label>
+        <input
+            type="number"
+            name="listing[bedrooms]"
+            class="form-control"
+            min="1"
+            required
+        >
+    </div>
+
+    <div class="col-md-3">
+        <label>Beds</label>
+        <input
+            type="number"
+            name="listing[beds]"
+            class="form-control"
+            min="1"
+            required
+        >
+    </div>
+
+    <div class="col-md-3">
+        <label>Bathrooms</label>
+        <input
+            type="number"
+            name="listing[bathrooms]"
+            class="form-control"
+            min="1"
+            required
+        >
+    </div>
+</div>
+
+      <div class="mb-4">
+    <label class="form-label">Select Category</label>
+
+    <div class="category-container">
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Trending" required hidden>
+            <i class="fa-solid fa-fire"></i>
+            <span>Trending</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Rooms" hidden>
+            <i class="fa-solid fa-bed"></i>
+            <span>Rooms</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Iconic City" hidden>
+            <i class="fa-solid fa-city"></i>
+            <span>Iconic City</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Mountains" hidden>
+            <i class="fa-solid fa-mountain"></i>
+            <span>Mountains</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Castles" hidden>
+            <i class="fa-brands fa-fort-awesome"></i>
+            <span>Castles</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Amazing Pools" hidden>
+            <i class="fa-solid fa-person-swimming"></i>
+            <span>Amazing Pools</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Camping" hidden>
+            <i class="fa-solid fa-campground"></i>
+            <span>Camping</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Farms" hidden>
+            <i class="fa-solid fa-cow"></i>
+            <span>Farms</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Arctic" hidden>
+            <i class="fa-regular fa-snowflake"></i>
+            <span>Arctic</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Domes" hidden>
+            <i class="fa-solid fa-igloo"></i>
+            <span>Domes</span>
+        </label>
+
+        <label class="category-card">
+            <input type="radio" name="listing[category]" value="Boats" hidden>
+            <i class="fa-solid fa-ship"></i>
+            <span>Boats</span>
+        </label>
+
+    </div>
+</div>
+
       
-      <button class="btn btn-dark add-btn mt-3">Add</button>
+      <button class="btn btn-dark add-btn mt-3 mb-5">Add</button>
       
     </form>
     </div>

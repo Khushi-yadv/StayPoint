@@ -1,10 +1,9 @@
 const Listing=require("../models/listing");
+const Booking = require("../models/bookings");
+const Wishlist = require("../models/wishlist");
 const axios=require("axios");
 
-module.exports.index = async (req,res)=>{
-    const allListings = await Listing.find({});
-    res.render("listings/index.ejs",{allListings});
-};
+//new
 
 module.exports.renderNewForm = async (req,res)=>{
     res.render("listings/new.ejs");
@@ -20,22 +19,42 @@ module.exports.showListing=async (req,res)=>{
         },
     })
     .populate("owner");
+
+    const booking = await Booking.findOne({
+    listing: listing._id,
+}).populate("user");
+
     if(!listing){
          req.flash("error","Listing you requested does not exit!");
          res.redirect("/listings");
         }else{
             console.log(listing);
-    res.render("listings/show.ejs",{listing})
+    let isWishlisted = false;
+
+if (req.user) {
+
+    const wishlist = await Wishlist.findOne({
+        user: req.user._id,
+        listing: listing._id
+    });
+
+    if (wishlist) {
+        isWishlisted = true;
+    }
+
+}
+
+res.render("listings/show.ejs", {
+    listing,
+    booking,
+    isWishlisted,
+    currUser: req.user
+});
     }
 };
 
 
 module.exports.createListing= async (req,res,next)=>{
-        /*let result=listingSchema.validate(req.body);
-        console.log(result);
-        if(result.error){
-            throw new ExpressError(400,result.error);
-        }*/
         const geoResponse=await axios.get("https://nominatim.openstreetmap.org/search",{
             params: {
                 q: req.body.listing.location,
@@ -43,7 +62,7 @@ module.exports.createListing= async (req,res,next)=>{
                 limit: 1
             },
             headers: {
-                "User-Agent": "GharJaisaGhar/1.0(khushiydav12@gmail.com)"
+                "User-Agent": "gharjaisaghar/1.0(khushiydav12@gmail.com)"
             }
         });
         let lat=null;
@@ -66,13 +85,6 @@ module.exports.createListing= async (req,res,next)=>{
             filename:req.file.filename
         }
     });
-
-
-       /*let url=req.file.path;
-        let filename=req.file.filename;
-        //const newListing=new Listing(req.body.listing);
-        newListing.owner=req.user._id;
-        newListing.image={url,filename};*/
         const listing = await newListing.save();
         console.log(listing);
         req.flash("success","New Listing Created!");
@@ -92,11 +104,66 @@ module.exports.renderEditForm=async (req,res)=>{
     res.render("listings/edit.ejs",{listing,originalImageUrl});
 };
 
+module.exports.bookListing = async (req, res) => {
+
+    req.flash(
+        "success",
+        "Listing booked successfully!"
+    );
+
+    res.redirect(
+        `/listings/${req.params.id}`
+    );
+};
+
+module.exports.index = async (req, res) => {
+
+    const { category, search } = req.query;
+
+    let filter = {};
+
+    if (category) {
+        filter.category = category;
+    }
+
+    if (search) {
+        filter.$or = [
+            { title: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } },
+            { country: { $regex: search, $options: "i" } },
+            { category: { $regex: search, $options: "i" } }
+        ];
+    }
+
+    const allListings = await Listing.find(filter);
+
+    const bookings = await Booking.find({})
+        .populate("user")
+        .populate("listing");
+
+    let wishlistIds = [];
+
+    if (req.user) {
+
+        const wishlist = await Wishlist.find({
+            user: req.user._id
+        });
+
+        wishlistIds = wishlist.map(item => item.listing.toString());
+
+    }
+
+    res.render("listings/index.ejs", {
+        allListings,
+        search,
+        bookings,
+        wishlistIds
+    });
+
+};
+
 
 module.exports.updateListing=async (req,res)=>{
-    /*if(!req.body.listing){
-            throw new ExpressError(400,"Send valid data for listing");
-        }*/
     let {id}=req.params;
     let listing=await Listing.findByIdAndUpdate(id,{...req.body.listing});
 

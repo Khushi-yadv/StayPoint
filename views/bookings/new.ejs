@@ -1,0 +1,496 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+
+.booking-container{
+    display:flex;
+    gap:30px;
+    align-items:flex-start;
+    margin-top:30px;
+}
+
+.left-card{
+    flex:2;
+}
+
+.right-card{
+    flex:1;
+}
+
+.booking-box,
+.price-box{
+    background:#fff;
+    border-radius:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.1);
+    padding:30px;
+    margin-bottom:30px;
+}
+
+.price-box{
+    position:sticky;
+    top:100px;
+}
+
+.price-box h3,
+.booking-box h3{
+    font-weight:600;
+    margin-bottom:25px;
+}
+
+.price-row{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    font-size:17px;
+}
+
+.total-row{
+    display:flex;
+    justify-content:space-between;
+    border-top:1px solid #ddd;
+    margin-top:20px;
+    padding-top:20px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.button-group{
+    margin-top:30px;
+}
+
+.button-group .btn{
+    width:170px;
+    margin-right:10px;
+}
+
+/* ---------- TOP LISTING CARD ---------- */
+
+.listing-card{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    background:#fff;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.1);
+    margin-bottom:30px;
+}
+
+.listing-image{
+    width:220px;
+    height:150px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.listing-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.listing-info h2{
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.location{
+    font-size:18px;
+    color:#666;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#fe424d;
+    font-size:28px;
+    font-weight:bold;
+}
+
+/* ---------- FORM ---------- */
+
+.booking-box label{
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+.booking-box input,
+.booking-box textarea{
+    border-radius:10px;
+    padding:10px;
+}
+
+.booking-box textarea{
+    resize:none;
+}
+
+/* ---------- PRICE DETAILS ---------- */
+
+.price-box{
+    min-width:320px;
+}
+
+.price-row span:last-child{
+    font-weight:600;
+}
+
+.total-row span:last-child{
+    color:#fe424d;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media(max-width:992px){
+
+    .booking-container{
+        flex-direction:column;
+    }
+
+    .left-card,
+    .right-card{
+        width:100%;
+    }
+
+    .price-box{
+        position:static;
+        min-width:100%;
+    }
+
+    .listing-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .listing-image{
+        width:100%;
+        height:220px;
+    }
+
+    .button-group .btn{
+        width:100%;
+        margin-bottom:10px;
+    }
+
+}
+
+</style>
+
+<div class="container mt-4">
+
+<div class="listing-card">
+
+    <img
+        src="<%= listing.image.url %>"
+        class="listing-image"
+        alt="listing">
+
+    <div class="listing-info">
+
+        <h2><%= listing.title %></h2>
+
+        <p class="location">
+            <i class="fa-solid fa-location-dot"></i>
+            <%= listing.location %>, <%= listing.country %>
+        </p>
+
+        <h3 class="price">
+            ₹<%= listing.price.toLocaleString("en-IN") %>/night
+        </h3>
+
+    </div>
+
+</div>
+
+<div class="booking-container">
+
+<div class="left-card">
+
+<div class="booking-box">
+
+    <h3>Booking Details</h3>
+
+<form id="bookingForm"
+action="/bookings/<%= listing._id %>"
+method="POST">
+
+<div class="mb-3">
+
+<label class="form-label">
+Full Name
+</label>
+
+<input
+type="text"
+name="fullName"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Email
+</label>
+
+<input
+type="email"
+name="email"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Phone Number
+</label>
+
+<input
+type="tel"
+name="phone"
+class="form-control"
+placeholder="9876543210"
+pattern="[6-9]{1}[0-9]{9}"
+maxlength="10"
+required>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6 mb-3">
+        <label class="form-label">Check-In Date</label>
+        <input
+            type="date"
+            id="checkIn"
+            name="checkIn"
+            class="form-control"
+            required>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label class="form-label">Check-Out Date</label>
+        <input
+            type="date"
+            id="checkOut"
+            name="checkOut"
+            class="form-control"
+            required>
+    </div>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Guests
+</label>
+
+<input
+type="number"
+name="guests"
+class="form-control"
+min="1"
+max="20"
+required>
+
+</div>
+
+<div class="mb-4">
+
+<label class="form-label">
+Special Request
+</label>
+
+<textarea
+name="specialRequest"
+rows="4"
+class="form-control"
+placeholder="Optional"></textarea>
+
+</div>
+
+<div class="button-group">
+
+<button
+type="submit"
+class="btn btn-danger">
+
+Confirm Booking
+
+</button>
+
+<a
+href="/listings/<%= listing._id %>"
+class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- RIGHT SIDE -->
+
+<div class="right-card">
+
+<div class="price-box">
+
+<h3>Price Details</h3>
+
+<div class="price-row">
+
+<span>
+Price / Night
+</span>
+
+<span>
+₹<%= listing.price.toLocaleString("en-IN") %>
+</span>
+
+</div>
+
+<div class="price-row">
+
+<span>
+Nights
+</span>
+
+<span id="nightCount">
+0
+</span>
+
+</div>
+
+<div class="price-row">
+
+<span>
+Booking Price
+</span>
+
+<span id="bookingPrice">
+₹0
+</span>
+
+</div>
+
+<div class="price-row">
+
+<span>
+GST (18%)
+</span>
+
+<span id="taxPrice">
+₹0
+</span>
+
+</div>
+
+<div class="price-row">
+
+<span>
+Service Charge
+</span>
+
+<span>
+₹200
+</span>
+
+</div>
+
+<div class="total-row">
+
+<span>
+Total
+</span>
+
+<span id="totalPrice">
+₹0
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const today = new Date().toISOString().split("T")[0];
+
+const checkIn = document.getElementById("checkIn");
+const checkOut = document.getElementById("checkOut");
+
+checkIn.min = today;
+
+checkIn.addEventListener("change", () => {
+
+    checkOut.min = checkIn.value;
+
+    calculatePrice();
+
+});
+
+checkOut.addEventListener("change", calculatePrice);
+
+const price = Number("<%= listing.price %>");
+
+function calculatePrice() {
+
+    if (checkIn.value && checkOut.value) {
+
+        const inDate = new Date(checkIn.value);
+        const outDate = new Date(checkOut.value);
+
+        const nights = Math.ceil(
+            (outDate - inDate) / (1000 * 60 * 60 * 24)
+        );
+
+        if (nights > 0) {
+
+            const bookingPrice = nights * price;
+
+            const tax = bookingPrice * 0.18;
+
+            const total = bookingPrice + tax + 200;
+
+            document.getElementById("nightCount").innerText = nights;
+
+            document.getElementById("bookingPrice").innerText =
+                "₹" + bookingPrice.toFixed(2);
+
+            document.getElementById("taxPrice").innerText =
+                "₹" + tax.toFixed(2);
+
+            document.getElementById("totalPrice").innerText =
+                "₹" + total.toFixed(2);
+
+        }
+
+    }
+
+}
+
+document.getElementById("bookingForm").addEventListener("submit", function(e){
+
+    if(checkOut.value <= checkIn.value){
+
+        e.preventDefault();
+
+        alert("Check-Out date must be after Check-In date.");
+
+    }
+
+});
+
+</script>

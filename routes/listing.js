@@ -38,6 +38,12 @@ router
 )
 .delete(isLoggedIn,isOwner,wrapAsync (listingController.deleteListing));
 
+router.post(
+    "/:id/book",
+    isLoggedIn,
+    wrapAsync(listingController.bookListing)
+);
+
 //index route
 /*router.get("/",wrapAsync (listingController.index));*/
 

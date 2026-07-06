@@ -1,35 +1,71 @@
 <% layout("/layouts/boilerplate") %>
-
 <body>
     <div class="row mt-3">
         <div class="listing-title col-8 offset-3">
-            <h3><%= listing.title %></h3>
+            <h2><%= listing.title %></h2>
         </div>
         <div class="card col-6 offset-3 show-card listing-card">
         <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
 
         <div class="card-body">
         <p class="card-text">
-        <i>Owned by <%= listing.owner.username %></i></p>
+        <i><b>Owned by <%= listing.owner.username %></b></i>
+<br>
+<%= listing.bedrooms %> bedrooms ·
+<%= listing.beds %> beds (<%= listing.bedType %>)·
+<%= listing.bathrooms %> bathrooms</p>
         <p class="card-text">
         <%= listing.description %> </p>
         <p class="card-text">&#8377; <%= listing.price.toLocaleString("en-IN") %> </p>
+        <p class="card-text">
+        <%= listing.category %> </p>
         <p class="card-text"><%= listing.location %> </p>
         <p class="card-text"><%= listing.country %></p>
         </div>
      </div>
 
     <br>
+<br>
 
-    <% if(currUser && listing.owner._id.equals(currUser._id)) {%>
-    <div class="btns">
-        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
+<br>
+
+<div class="btns col-6 offset-3">
+
+ <% if(currUser){ %>
+
+<button
+class="wishlist-btn <%= isWishlisted ? 'saved' : '' %>"
+data-id="<%= listing._id %>">
+
+<%= isWishlisted ? "❤️" : "🤍" %>
+
+</button>
+
+<% } %>
+
+<a
+href="/bookings/<%= listing._id %>"
+class="btn btn-danger me-3">
+
+    Book Now
+
+</a>
+
+    <% if(currUser && listing.owner._id.equals(currUser._id)){ %>
+
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn me-3">
+            Edit
+        </a>
 
         <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-        <button class="btn btn-dark offset-5">Delete</button>
-    </form>
-    </div> 
+            <button class="btn btn-dark me-3">
+                Delete
+            </button>
+        </form>
+
     <% } %>
+
+</div>
    
 
     <div class="col-8 offset-3 mb-3">
@@ -107,3 +143,5 @@
 
     
 </body>
+
+<script src="/js/wishlist.js"></script>

@@ -17,6 +17,18 @@ const listingSchema=new Schema({
     price:Number,
     location:String,
     country:String,
+    category:{
+        type:String,
+        required:true,
+    },
+bedrooms: Number,
+beds: Number,
+bedType: {
+    type: String,
+    enum: ["Single Bed", "Double Bed"],
+    default: "Double Bed"
+},
+bathrooms: Number,
     reviews:[
         {
             type: Schema.Types.ObjectId,
@@ -38,7 +50,7 @@ const listingSchema=new Schema({
             default: [0,0]
         }
     }
-});
+},{timestamps:true});
 
 listingSchema.post("findOneAndDelete",async(Listing)=>{
     if(Listing){

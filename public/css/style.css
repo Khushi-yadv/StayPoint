@@ -13,9 +13,7 @@ body{
 .navbar{
     height:5rem;
     background-color:white;
-    /*background-color:#ebebeb;*/
-    /*position:fixed;
-    top:0;*/
+    
 }
 
 .fa-compass{
@@ -82,6 +80,7 @@ body{
 
 .listing-link{
     text-decoration:none;
+    color:black !important;
 }
 
 /*card-effect*/
@@ -129,4 +128,139 @@ body{
     height:400px;
     width:85vh;
 
+}
+
+/*CATEGORY CARDS*/
+
+.category-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.category-card{
+    width: 140px;
+    height: 110px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: white;
+}
+
+.category-card i{
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.category-card span{
+    font-size: 14px;
+    text-align: center;
+    color: #222;
+}
+
+.category-card:hover{
+    border: 2px solid #fe424d;
+    color: #fe424d;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.category-card input:checked + i{
+    color: #fe424d;
+}
+
+.category-card input:checked + i + span{
+    color: #fe424d;
+    font-weight: bold;
+}
+
+.category-card:has(input:checked){
+    border: 2px solid #fe424d;
+    background-color: #fff5f5;
+}
+
+/*for wishlist*/
+.btn-outline-danger{
+    border-radius:10px;
+    padding:10px 20px;
+    font-weight:600;
+
+}
+
+.btn-danger{
+    border-radius:10px;
+    padding:10px 20px;
+    font-weight:600;
+}
+
+
+.card-img-top{
+    height:220px;
+    object-fit:cover;
+}
+
+/* Wishlist */
+
+.wishlist-btn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:white;
+    font-size:22px;
+    cursor:pointer;
+    box-shadow:0 3px 10px rgba(0,0,0,.2);
+    transition:.3s;
+    z-index:1000;
+}
+
+.wishlist-btn:hover{
+    transform:scale(1.15);
+    background:#ffeaea;
+}
+
+.wishlist-btn.saved{
+    color:red;
+    animation:heartPop .4s ease;
+}
+
+@keyframes heartPop{
+0%{
+transform:scale(.7);
+}
+50%{
+transform:scale(1.35);
+}
+100%{
+transform:scale(1);
+}
+}
+
+/* Toast*/
+
+.wishlist-toast{
+position:fixed;
+bottom:30px;
+right:30px;
+background:#222;
+color:#fff;
+padding:14px 22px;
+border-radius:12px;
+opacity:0;
+transition:.4s;
+z-index:99999;
+font-weight:600;
+}
+
+.wishlist-toast.show{
+opacity:1;
 }

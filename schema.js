@@ -8,6 +8,38 @@ module.exports.listingSchema=Joi.object({
         country:Joi.string().required(),
         price:Joi.number().required().min(0),
         image:Joi.string().allow("",null),
+        category: Joi.string()
+        .valid(
+            "Trending",
+            "Rooms",
+            "Iconic City",
+            "Mountains",
+            "Castles",
+            "Amazing Pools",
+            "Camping",
+            "Farms",
+            "Arctic",
+            "Domes",
+            "Boats"
+        ),
+       bedType: Joi.string()
+    .valid("Single Bed", "Double Bed")
+    .required(),
+
+        bedrooms: Joi.number()
+            .integer()
+            .min(1)
+            .required(),
+
+        beds: Joi.number()
+            .integer()
+            .min(1)
+            .required(),
+
+        bathrooms: Joi.number()
+            .integer()
+            .min(1)
+            .required()
     }).required()
 });
 

@@ -15,7 +15,7 @@ module.exports.signup=async(req,res)=>{
             if(err){
                 return next(err);
             }
-            req.flash("success","Welcome to GharJaisaGhar");
+            req.flash("success","Welcome to StayPoint!");
             res.redirect("/listings");
         });
     } catch(e){
@@ -31,7 +31,7 @@ module.exports.renderLoginForm=async(req,res)=>{
 
 
 module.exports.login=async(req,res)=>{
-        req.flash("success","Welcome back to GharJaisaGhar!");
+        req.flash("success","Welcome back to StayPoint!");
         let redirectUrl=res.locals.redirectUrl || "/listings";
         res.redirect(redirectUrl);
 };

@@ -1,0 +1,30 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+    <div class="card shadow p-4 mx-auto" style="max-width:600px;">
+        <div class="text-center">
+            <i class="fa-solid fa-circle-check text-success"
+               style="font-size:90px;"></i>
+            <h2 class="mt-3">Booking Confirmed</h2>
+        </div>
+        <hr>
+        <p>
+            <strong>Booking ID :</strong>
+            <%= booking._id %>
+        </p>
+        <p>
+            <strong>Owner Details :</strong>
+<%= listing.owner ? listing.owner.email : "Owner email not available" %>
+        </p>
+        <p>
+            <strong>Total Rent :</strong>
+            ₹<%= totalPrice.toFixed(2) %>
+        </p>
+        <div class="text-center mt-4">
+            <a href="/listings/<%= listing._id %>"
+               class="btn btn-success">
+                Back to Listing
+            </a>
+        </div>
+    </div>
+</div>

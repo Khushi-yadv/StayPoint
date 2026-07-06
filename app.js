@@ -21,10 +21,14 @@ const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const User=require("./models/user.js");
 
+const chatbotRoutes=require("./routes/chatbot");
+
+const wishlistRoutes = require("./routes/wishlist");
 
 const listingRouter=require("./routes/listing.js");
 const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
+const bookingRoutes = require("./routes/bookings");
 
 //const MONGO_URL="mongodb://127.0.0.1:27017/gharjaisaghar";
 const dbUrl=process.env.ATLASDB_URL;
@@ -44,6 +48,7 @@ async function main(){
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
+app.use(express.json()); 
 app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
@@ -133,7 +138,18 @@ app.use("/listings",listingRouter);
 //for review route
 app.use("/listings/:id/reviews",reviewRouter);
 
+//for booking route use
+app.use("/bookings", bookingRoutes);
+
+
 app.use("/",userRouter);
+
+//for chatbot
+app.use("/chatbot",chatbotRoutes);
+//app.use("/assistant", aiRoutes);
+
+//for wishlist
+app.use("/wishlist", wishlistRoutes);
 
 //index route
 /*app.get("/listings",wrapAsync (async (req,res)=>{
