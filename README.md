@@ -6,7 +6,7 @@ StayPoint is a full-stack property rental platform that allows users to explore,
 
 ## 🔗 Live Demo
 
-🌍 **Live Website:** https://staypoint-1n4o.onrender.com/
+🌍 **Live Website:** https://staypoint-1n4o.onrender.com/listings
 
 > 💡 The application may take a few seconds to load if the Render server is inactive.
 
